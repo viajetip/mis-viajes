@@ -79,13 +79,13 @@ const Map = (checkins) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {checkins.checkins.map((el, index) => {
+        {checkins.checkins.map((el:any, index : number) => {
             let pos = null;
 
             if(el.lat || el?.lng) {
                 pos = [el.lat, el.lng]
                 return (
-                    <Marker position={pos&&pos} key = {index + '-' + Date.now()}>
+                    <Marker position={pos && pos} key = {index + '-' + Date.now()}>
                       <Popup>{el.location}</Popup>
                     </Marker>
                   );
