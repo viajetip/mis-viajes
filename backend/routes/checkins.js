@@ -17,6 +17,7 @@ router.get("/", async (req, res) => {
         const checkins = await Checkin.find();
         res.status(200).json(checkins);
     } catch (err) {
+        console.log('🚨 Error');
         res.status(500).json(err);
     }
 });

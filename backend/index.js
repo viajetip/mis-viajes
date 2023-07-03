@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 const checkinRoute = require('./routes/checkins');
 const userRoute = require('./routes/users');
@@ -14,6 +15,10 @@ mongoose.connect('mongodb+srv://eliptikman1234:1zxcvbnm@social-media.l6byluu.mon
     .catch(err => console.log(err));
 
 app.use(express.json());
+
+app.use(cors({
+    origin: '*'
+}));
 
 app.use('/api/checkins', checkinRoute);
 app.use('/api/users', userRoute);
