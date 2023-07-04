@@ -2,7 +2,7 @@ import {useFetch} from '../hooks/useFetch'
 import Map from "../components/Maps"
 
 const Homepage = () => {
-    const { data, isPending, error } = useFetch('http://localhost:8000/checkins')
+    const { data, isPending, error } = useFetch('http://localhost:8800/api/checkins')
     return (
         <>
           <h1>Mis viajes</h1>

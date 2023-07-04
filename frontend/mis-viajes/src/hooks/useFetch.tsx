@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export const useFetch = (url) => {
+export const useFetch = (url : string) => {
   const [data, setData] = useState(null);
   const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
@@ -15,7 +15,7 @@ export const useFetch = (url) => {
         setData(json);
         setError(null);
       } catch (error) {
-        setError(`${error} Could not Fetch Data `);
+        setError(`${error.name}: ${error.message}}`);
         setIsPending(false);
       }
     };

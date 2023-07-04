@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const CheckinPage = () => {
 
   const [dataForm, setDataForm] = useState({
@@ -12,7 +14,9 @@ const CheckinPage = () => {
   return (
     <div>
       <h1>CheckinPage</h1>
-      <form></form>
+      <form>
+        
+      </form>
     </div>
   );
 };
