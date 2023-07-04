@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useInput } from "../hooks/useInput";
-import { usePostFetch } from "../hooks/usePostFetch";
+import { GlobalContext } from "../context/GlobalContext";
+import { Link } from "react-router-dom";
+
 
 const LoginPage = () => {
   const username = useInput("", "text");
   const password = useInput("", "password");
 
   const [data, setData] = useState(null);
-  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
+
+  const {setUserSession, userSession} = useContext(GlobalContext)
 
   const fectchData = async () => {
     const data = {
@@ -31,12 +34,14 @@ const LoginPage = () => {
     console.log(json);
     console.log("✅ Done");
 
-    if(json.status === 200) {
-      setData(json);
-      setError(null);
-    } else {
+    setError(null);
+    setData(json);
+    if(json.msg) {
+      console.log(json.status);
       setError(json.msg);
-      setData(null);
+      setData("La contraseña o el usuario son incorrectos.");
+    } else {
+      setUserSession({ token: json._id, isLogin: true, username: ''});
     }
   };
 
@@ -63,9 +68,10 @@ const LoginPage = () => {
       </form>
       <h1>
         {username.value} {password.value}
-        {data && data}
         {error && error}
       </h1>
+      <h2>{userSession.token}</h2>
+      <Link to="/checkin">Checkin</Link>
     </div>
   );
 };
