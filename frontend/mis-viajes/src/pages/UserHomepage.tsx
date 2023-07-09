@@ -1,8 +1,15 @@
 import React from 'react'
+import { Navbar } from '../components/Navbar'
+import { CheckinsList } from '../components/CheckinsList'
 
 const UserHomepage = () => {
   return (
-    <div>UserHomepage</div>
+    <>
+        <Navbar />
+        <section className="checkins-section">
+            <CheckinsList />
+        </section>
+    </>
   )
 }
 
