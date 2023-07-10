@@ -14,6 +14,9 @@ const Navbar = () => {
           <div className="navbar__logo">
             <img src={Logo} alt="logo" />
           </div>
+
+          <div className="navnar__mb--separator"></div>
+
           <div className="navbar__user">
             <div className="navbar_user--avatar">
                 <img

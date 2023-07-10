@@ -1,11 +1,16 @@
+import CheckinBtn from './CheckinBtn'
 import CheckinCard from './CheckinCard'
+import DateTag from './DateTag'
 
 const CheckinsList = () => {
   return (
-    <>
-        <div>CheckinsList</div>
+    <section className='checkin-list'>
+        <CheckinBtn />
+        <DateTag />
         <CheckinCard />
-    </>
+        <CheckinCard />
+
+    </section>
   )
 }
 

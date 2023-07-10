@@ -4,8 +4,13 @@
 
 @use 'container';
 @use 'navbar';
-
+@use 'maps';
+@use 'checkin';
 
 * {
     font-family: var(--font-family);
+}
+
+section {
+    box-sizing: border-box;
 }

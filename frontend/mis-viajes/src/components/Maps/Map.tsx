@@ -73,13 +73,13 @@ const Map = (checkins) => {
 
   return (
     <div>
-      <MapContainer center={position} zoom={1} scrollWheelZoom={false}>
+      <MapContainer center={[30,0]} zoom={3} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
 
-        {checkins.checkins.map((el:any, index : number) => {
+        {checkins?.checkins?.map((el:any, index : number) => {
             let pos = null;
 
             if(el.lat || el?.lng) {
