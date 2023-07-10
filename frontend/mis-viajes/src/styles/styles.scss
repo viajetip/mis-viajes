@@ -1,4 +1,10 @@
+@use 'normalize';
+
 @use 'variables';
+
+@use 'container';
+@use 'navbar';
+
 
 * {
     font-family: var(--font-family);

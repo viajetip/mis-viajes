@@ -1,0 +1,43 @@
+.navbar {
+    background-color: var(--main-color);
+}
+
+.navbar__menu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 15px;
+}
+
+.navbar__btn {
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.navbar__logo {
+    img {
+        width: 140px;
+    }
+}
+
+.navbar__user {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    padding: 5px 15px;
+}
+
+.navbar_user--avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #fff;
+    margin-right: 1rem;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
