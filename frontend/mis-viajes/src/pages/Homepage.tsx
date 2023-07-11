@@ -9,6 +9,15 @@ const Homepage = () => {
          
           {error && <div>{error}</div>}
           {isPending ? <div>Loading...</div> : data &&  <Map checkins={data} /> }
+
+          <h2 className="section-title">
+            Insignias
+          </h2>
+
+          <h2 className="section-title">
+            Destacados
+          </h2>
+
         </>
       )
 }

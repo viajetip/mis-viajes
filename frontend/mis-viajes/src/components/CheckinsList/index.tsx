@@ -1,3 +1,4 @@
 import CheckinsList from "./CheckinsList";
+import CheckinCard from "./CheckinCard";
 
-export { CheckinsList }
+export { CheckinsList, CheckinCard }

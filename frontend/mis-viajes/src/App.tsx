@@ -7,11 +7,13 @@ import CheckinRoute from "./Routes/CheckinRoute";
 import UserHomepage from "./pages/UserHomepage";
 
 import './styles/styles.scss'
+import UserPage from "./pages/UserPage";
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<Homepage />} />
+      <Route path="/u/:id" element={<UserPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route element={<CheckinRoute />}>
         <Route path="/checkin" element={<CheckinPage />} />

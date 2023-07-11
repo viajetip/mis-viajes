@@ -6,6 +6,10 @@
 @use 'navbar';
 @use 'maps';
 @use 'checkin';
+@use 'headers';
+@use 'profileheader';
+
+@use 'userpage';
 
 * {
     font-family: var(--font-family);
