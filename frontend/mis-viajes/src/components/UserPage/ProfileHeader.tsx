@@ -1,4 +1,5 @@
 import Map from "../Maps";
+import Avatar from "../../assets/img/avatar.svg";
 
 const ProfileHeader = () => {
   return (
@@ -8,7 +9,9 @@ const ProfileHeader = () => {
         <div className="container profile-header__row">
             <div className="profile-header__avatar-section">
                 <div className="profile-header__avatar">
-                    <h1>Profile</h1>
+                  <picture>
+                    <img src={Avatar} alt="Avatar" className="profile-header__avatar-img" />
+                  </picture>
                 </div>
             </div>
             <div className="profile-header__description">

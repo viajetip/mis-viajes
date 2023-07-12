@@ -1,5 +1,6 @@
 import {useFetch} from '../hooks/useFetch'
 import Map from "../components/Maps"
+import {LoginPageExample, LoginPageExampleB} from '../components/Test'
 
 const Homepage = () => {
     const { data, isPending, error } = useFetch('http://localhost:8800/api/checkins')
@@ -17,6 +18,8 @@ const Homepage = () => {
           <h2 className="section-title">
             Destacados
           </h2>
+
+          <LoginPageExampleB />
 
         </>
       )

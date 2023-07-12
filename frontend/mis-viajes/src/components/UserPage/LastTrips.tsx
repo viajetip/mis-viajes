@@ -3,7 +3,7 @@ import { CheckinCard } from '../CheckinsList'
 const LastTrips = () => {
   return (
     <section className='last-trips'>
-        <div className="container">
+        <div className="container-medium">
             <h2 className="section-title">
                 Últimos viajes
             </h2>
