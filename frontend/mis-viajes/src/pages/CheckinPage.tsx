@@ -3,6 +3,7 @@ import { GlobalContext } from "../context/GlobalContext";
 
 const CheckinPage = () => {
   const { userSession } = useContext(GlobalContext);
+  const [locations, setLocations] = useState([]);
 
   const [dataForm, setDataForm] = useState({
     userId: userSession.token,
@@ -57,7 +58,12 @@ const CheckinPage = () => {
         body: JSON.stringify({ lat, lng}),
       });
       const json = await response.json();
-      console.log("Response code", json);
+      console.log("Response code", json?.features);
+      setLocations(json?.features)
+      /*
+      context
+      neme
+      */
 
     });
   };
@@ -99,6 +105,12 @@ const CheckinPage = () => {
         >
           Get coordentes
         </button>
+        <ul>
+          {locations.map((location) => (
+            <li key={location.id}>{location.properties.name} {location?.context?.country?.name}</li>
+          ))}
+
+        </ul>
       </div>
     </div>
   );
