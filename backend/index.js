@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const checkinRoute = require('./routes/checkins');
 const userRoute = require('./routes/users');
+const checkinRouteV2 = require('./routes/v2/checkins');
 
 
 const app = express();
@@ -22,6 +23,8 @@ app.use(cors({
 
 app.use('/api/checkins', checkinRoute);
 app.use('/api/users', userRoute);
+app.use('/v2/api/checkins', checkinRouteV2);
+
 
 app.listen(8800, () => {
     console.log('🚀 Backend server is running!');
