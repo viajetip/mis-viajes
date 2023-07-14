@@ -41,7 +41,7 @@ const LoginPage = () => {
       setError(json.msg);
       setData("La contraseña o el usuario son incorrectos.");
     } else {
-      setUserSession({ token: json._id, isLogin: true, username: ''});
+      setUserSession({ token: json.accessToken, isLogin: true, username: ''});
     }
   };
 

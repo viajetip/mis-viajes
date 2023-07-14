@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 // REGISTER
 router.post("/register", async (req, res) => {
@@ -16,7 +17,13 @@ router.post("/register", async (req, res) => {
     });
     // save user and respond
     const user = await newUser.save();
-    res.status(200).json(user._id);
+
+    const token = jwt.sign(
+      { _id: user._id, username: user.username },
+      'SECRET_KEY'
+    );
+
+    res.status(200).json({token, id: user._id, username: user.username});
   } catch (err) {
     res.status(500).json(err);
   }
@@ -39,12 +46,19 @@ router.post("/login", async (req, res) => {
             res.status(400).json({msg:"Wrong username or password!"})
             return;
         }
+
+        const token = jwt.sign(
+            { _id: user._id, username: user.username },
+            'SECRET_KEY'
+        );
+
         // send response
-        res.status(200).json({_id: user._id, username: user.username});
+        res.status(200).json({_id: user._id, accessToken: token, username: user.username});
 
         // respond
 
     } catch (err) {
+        console.log(err);
         res.status(500).json(err);
     }
 });

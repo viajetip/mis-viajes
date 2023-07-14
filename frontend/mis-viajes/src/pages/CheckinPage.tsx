@@ -4,6 +4,17 @@ import { GlobalContext } from "../context/GlobalContext";
 const CheckinPage = () => {
   const { userSession } = useContext(GlobalContext);
   const [locations, setLocations] = useState([]);
+  const [place, setPlace] = useState({
+    name: "",
+    city: "",
+    country: "",
+  });
+
+  const [coordinates, setCoordinates] = useState({
+    lat: "",
+    lng: "",
+  });
+
 
   const [dataForm, setDataForm] = useState({
     userId: userSession.token,
@@ -19,11 +30,11 @@ const CheckinPage = () => {
   const handleForm = async (e) => {
     e.preventDefault();
 
-    const country = e.target.country.value;
-    const city = e.target.country.value;
-    const location = e.target.location.value;
-    const lat = e.target.lat.value;
-    const lng = e.target.lng.value;
+    const country = place.country;
+    const city = place.city;
+    const location = place.name;
+    const lat = coordinates.lat;
+    const lng = coordinates.lng;
 
     setDataForm({ ...dataForm, country, city, location, lat, lng });
 
@@ -68,29 +79,48 @@ const CheckinPage = () => {
     });
   };
 
+  const handelClickLocation = (e) => {
+    console.log(e.target);
+    const direction = locations[e.target.getAttribute("id-component")]
+    console.log("Index", direction);
+    setCoordinates({
+      lat: direction.geometry.coordinates[1],
+      lng: direction.geometry.coordinates[0]
+    })
+
+    console.log("Direction", direction.properties.context.place.name);
+
+    
+    setPlace({
+      name: direction.properties.name,
+      city: direction.properties.context.place.name,
+      country: direction.properties.context.country.name
+    })
+  }
+
   return (
     <div>
       <h1>CheckinPage</h1>
       <form onSubmit={handleForm}>
         <div>
           <label htmlFor="">Lugar</label>
-          <input type="text" name="location" />
+          <input type="text" name="location" value={place.name} onChange={e => setPlace({...place, name: e.target.value})}/>
         </div>
         <div>
           <label htmlFor="">País</label>
-          <input type="text" name="country" />
+          <input type="text" name="country" value={place.country} onChange={e => setPlace({...place, country: e.target.value})}/>
         </div>
         <div>
           <label htmlFor="">Ciudad</label>
-          <input type="text" name="city" />
+          <input type="text" name="city" value={place.city} onChange={e => setPlace({...place, city: e.target.value})}/>
         </div>
         <div>
           <label htmlFor="">Lat</label>
-          <input type="text" name="lat" />
+          <input type="text" value={coordinates.lat} onChange={(e) => setCoordinates({...coordinates, lat: e.target.value})} name="lat" />
         </div>
         <div>
           <label htmlFor="">Lng</label>
-          <input type="text" name="lng" />
+          <input type="text" value={coordinates.lng} name="lng" onChange={(e) => setCoordinates({...coordinates, lng: e.target.value})} />
         </div>
         <div>
           <input type="submit" value="Checkin" />
@@ -106,8 +136,8 @@ const CheckinPage = () => {
           Get coordentes
         </button>
         <ul>
-          {locations.map((location) => (
-            <li key={location.id}>{location.properties.name} {location?.context?.country?.name}</li>
+          {locations.map((location, index) => (
+            <li key={`key-${Date.now() + Math.random()*10}`} onClick={handelClickLocation} id-component={index}>{location.properties.name} {location?.context?.country?.name}</li>
           ))}
 
         </ul>
