@@ -4,8 +4,9 @@ const cors = require('cors');
 
 const checkinRoute = require('./routes/checkins');
 const userRoute = require('./routes/users');
-const checkinRouteV2 = require('./routes/v2/checkins');
 
+const placesRoutes = require('./routes/v2/places');
+const checkinRoutes = require('./routes/v2/checkins');
 
 const app = express();
 
@@ -23,7 +24,10 @@ app.use(cors({
 
 app.use('/api/checkins', checkinRoute);
 app.use('/api/users', userRoute);
-app.use('/v2/api/checkins', checkinRouteV2);
+
+app.use('/v2/api/places', placesRoutes);
+app.use('/v2/api/checkins', checkinRoutes);
+
 
 
 app.listen(8800, () => {

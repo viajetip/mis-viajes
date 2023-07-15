@@ -1,8 +1,10 @@
 import { useContext, useState } from "react";
 import { GlobalContext } from "../context/GlobalContext";
+import {Navigate } from "react-router-dom";
 
 const CheckinPage = () => {
   const { userSession } = useContext(GlobalContext);
+  const [error, setError] = useState(false);
   const [locations, setLocations] = useState([]);
   const [place, setPlace] = useState({
     name: "",
@@ -30,20 +32,21 @@ const CheckinPage = () => {
   const handleForm = async (e) => {
     e.preventDefault();
 
-    const country = place.country;
-    const city = place.city;
-    const location = place.name;
-    const lat = coordinates.lat;
-    const lng = coordinates.lng;
+    const formData  = {userId: userSession.token, country:'', city:'', location:'', lat:'', lng:''}
 
-    setDataForm({ ...dataForm, country, city, location, lat, lng });
+    formData.country = place.country;
+    formData.city = place.city;
+    formData.location = place.name;
+    formData.lat = coordinates.lat;
+    formData.lng = coordinates.lng;
 
-    const response = await fetch("http://localhost:8800/api/checkins", {
+    const response = await fetch("http://localhost:8800/v2/api/checkins", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "authorization": `Bearer ${userSession.token}`
       },
-      body: JSON.stringify(dataForm),
+      body: JSON.stringify(formData),
     });
 
     const json = await response.json().catch((err) => {
@@ -53,22 +56,46 @@ const CheckinPage = () => {
     console.log(json);
   };
 
+
+
   const updateLocation = async (e) => {
     e.preventDefault();
     setLoadingGps(true);
     navigator.geolocation.getCurrentPosition(async (position) => {
       const lat = position.coords.latitude;
       const lng = position.coords.longitude;
-      console.log(lat, lng);
       setLoadingGps(false);
-      const response = await fetch("http://localhost:8800/v2/api/checkins", {
-        method: "POST",
+      
+      const response = await fetch(`http://localhost:8800/v2/api/places/nearBy?color1=red&color2=blue&longitude=${lng}&latitude=${lat}`,{
+        method: "GET",
         headers: {
           "Content-Type": "application/json",
+          "authorization": `Bearer ${userSession.token}`
+        }
+      }).catch((err) => {
+        console.log('🚨',err);
+      });
+
+
+      /*const response = await fetch("http://localhost:8800/v2/api/places/nearBy", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "authorization": `Bearer ${userSession.token}`
         },
         body: JSON.stringify({ lat, lng}),
-      });
+      }).catch((err) => {
+        console.log('🚨',err);
+      });*/
+
+      if(response?.status === 403) {
+        console.log("Error", response);
+        setError(true);
+        return;
+      }
+
       const json = await response.json();
+      console.log(json);
       console.log("Response code", json?.features);
       setLocations(json?.features)
       /*
@@ -80,9 +107,7 @@ const CheckinPage = () => {
   };
 
   const handelClickLocation = (e) => {
-    console.log(e.target);
     const direction = locations[e.target.getAttribute("id-component")]
-    console.log("Index", direction);
     setCoordinates({
       lat: direction.geometry.coordinates[1],
       lng: direction.geometry.coordinates[0]
@@ -96,6 +121,10 @@ const CheckinPage = () => {
       city: direction.properties.context.place.name,
       country: direction.properties.context.country.name
     })
+  }
+
+  if(error) {
+    return <Navigate to="/login" />
   }
 
   return (

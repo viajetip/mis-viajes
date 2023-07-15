@@ -2,6 +2,7 @@ const router = require("express").Router();
 const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require('dotenv').config();
 
 // REGISTER
 router.post("/register", async (req, res) => {
@@ -20,7 +21,7 @@ router.post("/register", async (req, res) => {
 
     const token = jwt.sign(
       { _id: user._id, username: user.username },
-      'SECRET_KEY'
+      process.env.USER_KEY
     );
 
     res.status(200).json({token, id: user._id, username: user.username});
@@ -49,7 +50,7 @@ router.post("/login", async (req, res) => {
 
         const token = jwt.sign(
             { _id: user._id, username: user.username },
-            'SECRET_KEY'
+            process.env.USER_KEY
         );
 
         // send response

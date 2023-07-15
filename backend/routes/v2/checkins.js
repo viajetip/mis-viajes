@@ -1,23 +1,47 @@
 const router = require("express").Router();
 const axios = require("axios");
-// CREATE
-router.post("/", async (req, res) => {
-  try {
-    if (req.body.longitude && req.body.latitude) {
-      throw new Error("🚨 Error");
+const authMiddleware = require("../../middlewares/authMiddleware");
+
+const Checkin = require("../../models/Checkin");
+const User = require("../../models/User"); 
+
+router.post("/", authMiddleware, async (req, res) => {
+    console.log('✅', req.user);
+    
+    const response = {...req.body, userId: req.user};
+
+    const newCheckin = new Checkin(response);
+    try {
+      const savedCheckin = await newCheckin.save();
+      res.status(200).json(savedCheckin);
+    } catch (err) {
+      res.status(500).json(err);
     }
-    const longitude = req.body.lng;
-    const latitude = req.body.lat;
+  });
+  
+  // GET
+  router.get("/", async (req, res) => {
+      try {
+          const checkins = await Checkin.find();
+          res.status(200).json(checkins);
+      } catch (err) {
+          console.log('🚨 Error');
+          res.status(500).json(err);
+      }
+  });
 
-    const url = `https://api.mapbox.com/search/searchbox/v1/reverse?longitude=${longitude}&latitude=${latitude}&access_token=pk.eyJ1IjoiY2hhcmxpZWF3d3ciLCJhIjoiY2xqa216NTNoMGh2ZjNscGtzbnF3dnF2cyJ9.U6Z7HRbHAf-dLrvCG3vQrA`;
-    //const url = `https://api.mapbox.com/search/geocode/v6/reverse?types=country%2Cplace&language=es&longitude=${longitude}&latitude=${latitude}&access_token=pk.eyJ1IjoiY2hhcmxpZWF3d3ciLCJhIjoiY2xqa216NTNoMGh2ZjNscGtzbnF3dnF2cyJ9.U6Z7HRbHAf-dLrvCG3vQrA`;
-    const response = await axios.get(`${url}`);
-    const data = response.data;
-
-    res.status(200).json(data);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
-module.exports = router;
+  router.get("/users/:username", async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        console.log('🚨', user._id.toString());
+        const checkins = await Checkin.find({ userId: user._id.toString()});
+        res.status(200).json(checkins);
+    } catch (err) {
+        console.log('🚨 Error');
+        res.status(500).json(err);
+    }
+  });
+  
+  
+  module.exports = router;
+  
