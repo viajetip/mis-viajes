@@ -11,7 +11,7 @@
   background-color: grey;
 }
 
-.checkin-card__title {
+.checkin-card__title, .checkin-item__title, .checkin-item__location {
   margin: 0px;
 }
 
@@ -79,4 +79,99 @@
     height: calc(100vh - 44px);
     object-fit: cover;
   }
+}
+
+.checkin-container__list-item {
+  padding: 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  &:hover {
+    background-color: #f3f3f3;
+  }
+}
+
+.checkin-container__list-item__icon {
+  img {
+    width: 40px;
+  }
+}
+
+.checkin-container__h1 {
+  text-align: center;
+  margin: 0;
+  margin-top: 1rem;
+  font-size: 1.4rem;
+}
+
+.left-icon {
+  float: left;
+  cursor: pointer;
+}
+
+.checkin-container__subtitle {
+  margin: 0;
+  text-align: center;
+}
+
+.checkin-container__input-container {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  background-color: #f0f0f0;
+  border-radius: 6px;
+  margin: 1rem 0;
+  input {
+    border: none;
+    width: 100%;
+    background-color: transparent;
+    box-sizing: border-box;
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .blue-selector {
+    color:#62aae1;
+  }
+}
+
+.checkin-container__button {
+  border: none;
+  color: white;
+  text-align: center;
+  width: 100%;
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: #2e82a8;
+  border-radius: 24px;
+  font-size: 0.95em;
+  padding: 10px 6rem;
+}
+
+.checkin-container__button-section {
+  margin: 1rem 0;
+}
+
+.checkin-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  padding: 0 15px;
+  box-sizing: border-box;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px #97c2d0;
+}
+
+.checkin-container__list {
+  overflow: scroll;
+  height: 250px;
 }
