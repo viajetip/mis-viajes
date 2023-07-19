@@ -8,6 +8,7 @@ import UserHomepage from "./pages/UserHomepage";
 
 import './styles/styles.scss'
 import UserPage from "./pages/UserPage";
+import CheckinV2Page from "./pages/CheckinV2Page";
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
       <Route path="/u/:id" element={<UserPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route element={<CheckinRoute />}>
-        <Route path="/checkin" element={<CheckinPage />} />
+        <Route path="/checkin" element={<CheckinV2Page />} />
       </Route>
       <Route path="/userlist" element={<UserHomepage />} />
     </Routes>

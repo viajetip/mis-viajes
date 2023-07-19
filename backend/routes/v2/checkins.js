@@ -7,7 +7,7 @@ const User = require("../../models/User");
 
 router.post("/", authMiddleware, async (req, res) => {
     console.log('✅', req.user);
-    
+
     const response = {...req.body, userId: req.user};
 
     const newCheckin = new Checkin(response);
@@ -30,11 +30,28 @@ router.post("/", authMiddleware, async (req, res) => {
       }
   });
 
+  // Delete
+    router.delete("/:id", authMiddleware, async (req, res) => {
+        try {
+            const checkin = await Checkin.findById(req.params.id);
+            if(checkin.userId === req.user._id) {
+                await checkin.deleteOne();
+                res.status(200).json({msg: "The checkin has been deleted"});
+            } else {
+                res.status(403).json({msg: "You can delete only your checkin"});
+            }
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    });
+
+
+
   router.get("/users/:username", async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
-        console.log('🚨', user._id.toString());
         const checkins = await Checkin.find({ userId: user._id.toString()});
+        console.log('✅', checkins);
         res.status(200).json(checkins);
     } catch (err) {
         console.log('🚨 Error');

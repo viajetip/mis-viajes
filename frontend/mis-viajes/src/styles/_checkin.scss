@@ -67,3 +67,16 @@
     font-size: 22px;
   }
 }
+
+
+.checkin-section {
+
+}
+
+.checkin-section__bg {
+  img {
+    width: 100%;
+    height: calc(100vh - 44px);
+    object-fit: cover;
+  }
+}
