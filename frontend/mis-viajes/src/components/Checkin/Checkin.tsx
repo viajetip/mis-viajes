@@ -1,30 +1,38 @@
-import { AiOutlineSearch } from "react-icons/ai";
-import { FaLocationArrow } from "react-icons/fa";
 import { IoIosArrowBack } from "react-icons/io";
 import CheckinItem from "./CheckinItem";
-import { BiCurrentLocation } from "react-icons/bi";
+import InputCheckin from "./InputCheckin";
+import { useState } from "react";
 
-const Checkin = () => {
+const Checkin = ({ isLoading, places }) => {
+  const [filter, setFilter] = useState("");
+
   return (
     <section className="checkin-container">
-      <div className="checkin-container__header-section">
-      </div>
+      <div className="checkin-container__header-section"></div>
       <h1 className="checkin-container__h1">
         <IoIosArrowBack className="left-icon" />
-        Buscar lugar</h1>
-      <p className="checkin-container__subtitle">
-        Busca el lugar donde te encuentras
-      </p>
-      <div className="checkin-container__input-container">
-        <AiOutlineSearch />
-        <input type="text" placeholder="Buscar lugar" />
-        <FaLocationArrow className="blue-selector" />
-      </div>
+        Buscar lugar
+      </h1>
+
+      <InputCheckin filter={filter} setFilter={setFilter} />  
+
       <div className="checkin-container__list">
-        <CheckinItem />
-        <CheckinItem />
-        <CheckinItem />
+        {isLoading && <h1>Loading...</h1>}
+        {places
+          .map((place) => (
+            <CheckinItem
+              key={`${place.properties.mapbox_id}-date`}
+              place={place}
+            />
+          ))
+          .filter((place) => {
+            if (filter.length === 0) return true;
+            return place.props.place.properties.name
+              .toLowerCase()
+              .includes(filter.toLowerCase());
+          })}
       </div>
+
       <div className="checkin-container__button-section">
         <button className="checkin-container__button">+ Checkin</button>
       </div>

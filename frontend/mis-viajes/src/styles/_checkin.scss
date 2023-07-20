@@ -103,7 +103,7 @@
   text-align: center;
   margin: 0;
   margin-top: 1rem;
-  font-size: 1.4rem;
+  font-size: 1.25rem;
 }
 
 .left-icon {
@@ -174,4 +174,9 @@
 .checkin-container__list {
   overflow: scroll;
   height: 250px;
+}
+
+.checkin-container__remove-btn {
+  color: #8e8e8e;
+  font-size: 16px;
 }
