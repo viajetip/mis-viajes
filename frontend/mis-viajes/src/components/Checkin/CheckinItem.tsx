@@ -8,7 +8,7 @@ const CheckinItem = ({place, onClick, active}) => {
       </div>
       <div className="checkin-container__list-item__info">
         <h3 className="checkin-item__title">{place?.properties?.name}</h3>
-        <p className="checkin-item__location">París, Francia</p>
+        <p className="checkin-item__location">{ place?.properties?.context?.place.name } - {place?.properties?.context?.country.name }</p>
       </div>
     </div>
   );
