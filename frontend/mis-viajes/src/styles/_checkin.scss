@@ -93,6 +93,11 @@
   }
 }
 
+.checkin-container__list-item--active {
+  background-color: #f3f3f3;
+  color: #317192;
+}
+
 .checkin-container__list-item__icon {
   img {
     width: 40px;
@@ -150,6 +155,10 @@
   border-radius: 24px;
   font-size: 0.95em;
   padding: 10px 6rem;
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
 }
 
 .checkin-container__button-section {

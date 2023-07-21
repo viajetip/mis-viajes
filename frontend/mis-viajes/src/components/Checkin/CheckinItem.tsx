@@ -1,8 +1,8 @@
 import CheckinSVG from "../../assets/img/checkin-avatar.svg";
 
-const CheckinItem = ({place}) => {
+const CheckinItem = ({place, onClick, active}) => {
   return (
-    <div className="checkin-container__list-item">
+    <div className={`checkin-container__list-item ${active ? "checkin-container__list-item--active" : ''}`} onClick={onClick}>
       <div className="checkin-container__list-item__icon">
         <img src={CheckinSVG} alt="" />
       </div>

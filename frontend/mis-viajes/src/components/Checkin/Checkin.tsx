@@ -5,6 +5,15 @@ import { useState } from "react";
 
 const Checkin = ({ isLoading, places }) => {
   const [filter, setFilter] = useState("");
+  const [currentPlace, setCurrentPlace] = useState(null);
+
+  const handleOnclickCheckin = (id) => {
+    console.log(id);
+    setCurrentPlace(places.find((place) => {
+      return place.properties.mapbox_id == id;
+    }))
+    console.log("🏖️", currentPlace);
+  };
 
   return (
     <section className="checkin-container">
@@ -14,7 +23,7 @@ const Checkin = ({ isLoading, places }) => {
         Buscar lugar
       </h1>
 
-      <InputCheckin filter={filter} setFilter={setFilter} />  
+      <InputCheckin filter={filter} setFilter={setFilter} />
 
       <div className="checkin-container__list">
         {isLoading && <h1>Loading...</h1>}
@@ -23,6 +32,8 @@ const Checkin = ({ isLoading, places }) => {
             <CheckinItem
               key={`${place.properties.mapbox_id}-date`}
               place={place}
+              onClick={() => handleOnclickCheckin(place.properties.mapbox_id)} 
+              active = {currentPlace?.properties?.mapbox_id === place.properties.mapbox_id}
             />
           ))
           .filter((place) => {
@@ -34,7 +45,7 @@ const Checkin = ({ isLoading, places }) => {
       </div>
 
       <div className="checkin-container__button-section">
-        <button className="checkin-container__button">+ Checkin</button>
+        <button disabled={currentPlace === null} className="checkin-container__button">+ Checkin</button>
       </div>
     </section>
   );
