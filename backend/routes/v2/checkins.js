@@ -6,8 +6,6 @@ const Checkin = require("../../models/Checkin");
 const User = require("../../models/User"); 
 
 router.post("/", authMiddleware, async (req, res) => {
-    console.log('✅', req.user);
-
     const response = {...req.body, userId: req.user};
 
     const newCheckin = new Checkin(response);
@@ -51,7 +49,6 @@ router.post("/", authMiddleware, async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
         const checkins = await Checkin.find({ userId: user._id.toString()});
-        console.log('✅', checkins);
         res.status(200).json(checkins);
     } catch (err) {
         console.log('🚨 Error');
