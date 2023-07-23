@@ -25,7 +25,7 @@ const Checkin = ({ isLoading, places }) => {
     currentPlace,
   });
 
-  if(!done) return (
+  if(done) return (
     <Wrapper title="¡Listo! Está listo el checkin">
       <ConfirmCheckin />
     </Wrapper>
@@ -34,7 +34,6 @@ const Checkin = ({ isLoading, places }) => {
   return (
     <Wrapper title="Buscar lugar">
       <InputCheckin filter={filter} setFilter={setFilter} />
-
       <div className="checkin-container__list">
         {isLoading && <h1>Loading...</h1>}
         {places

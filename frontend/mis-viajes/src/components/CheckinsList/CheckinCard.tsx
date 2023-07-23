@@ -1,10 +1,11 @@
 import { MdLocationOn } from "react-icons/md";
+import { IconPlaces } from "../Icons";
 
 const CheckinCard = () => {
   return (
     <div className="checkin-card">
       <div className="checkin-card__icon">
-        <div className="checkin-card__icon__circle"></div>
+        <IconPlaces />
       </div>
       <div className="checkin-card__description">
         <h3 className="checkin-card__title">Torre Eifel</h3>
