@@ -3,11 +3,9 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { FaLocationArrow } from "react-icons/fa";
 import { RiCloseFill } from "react-icons/ri";
 
+
 const InputCheckin = ({ filter, setFilter }) => {
   const [inputValue, setInputValue] = React.useState("");
-
-  console.log(filter);
-
   useEffect(() => {
     setFilter(inputValue);
   }, [inputValue]);

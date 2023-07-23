@@ -1,0 +1,17 @@
+.back-btn--link {
+  padding: 13px;
+  border-radius: 30px;
+  background-color: #9bb1c5;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 1rem;
+  &:hover {
+    background-color: #7994aa;
+  }
+}

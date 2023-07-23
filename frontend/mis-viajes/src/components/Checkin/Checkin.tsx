@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
 
-import { IoIosArrowBack } from "react-icons/io";
-import CheckinItem from "./CheckinItem";
-import InputCheckin from "./InputCheckin";
+import CheckinItem from "./Item";
+import InputCheckin from "./Input";
 import { GlobalContext } from "../../context/GlobalContext";
+import { useCheckin } from "../../hooks/useCheckin";
+import Wrapper from "./Wrapper";
+import ConfirmCheckin from "./Confirmation";
 
 const Checkin = ({ isLoading, places }) => {
   const [filter, setFilter] = useState("");
@@ -18,49 +20,19 @@ const Checkin = ({ isLoading, places }) => {
     );
   };
 
-  const handleCheckinAction = async (e) => {
-    e.preventDefault();
-    if (currentPlace === null) return;
+  const { loading, handleCheckinAction, done } = useCheckin({
+    userSession,
+    currentPlace,
+  });
 
-    const formData = {
-      userId: userSession.token,
-      country: "",
-      city: "",
-      location: "",
-      lat: "",
-      lng: "",
-    };
-
-    formData.country = currentPlace.properties.context.country.name;
-    formData.city = currentPlace.properties.context.place.name;
-    formData.location = currentPlace.properties.name;
-    formData.lat = currentPlace.geometry.coordinates[1];
-    formData.lng = currentPlace.geometry.coordinates[0];
-
-    const response = await fetch("http://localhost:8800/v2/api/checkins", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${userSession.token}`,
-      },
-      body: JSON.stringify(formData),
-    });
-
-    const json = await response.json().catch((err) => {
-      console.log("🚨", err);
-    });
-
-    console.log("✅", json);
-  };
+  if(!done) return (
+    <Wrapper title="¡Listo! Está listo el checkin">
+      <ConfirmCheckin />
+    </Wrapper>
+  )
 
   return (
-    <section className="checkin-container">
-      <div className="checkin-container__header-section"></div>
-      <h1 className="checkin-container__h1">
-        <IoIosArrowBack className="left-icon" />
-        Buscar lugar
-      </h1>
-
+    <Wrapper title="Buscar lugar">
       <InputCheckin filter={filter} setFilter={setFilter} />
 
       <div className="checkin-container__list">
@@ -91,10 +63,10 @@ const Checkin = ({ isLoading, places }) => {
           disabled={currentPlace === null}
           className="checkin-container__button"
         >
-          + Checkin
+          {loading && " " } + Checkin
         </button>
       </div>
-    </section>
+    </Wrapper>
   );
 };
 

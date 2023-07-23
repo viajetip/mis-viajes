@@ -19,7 +19,7 @@ function App() {
       <Route element={<CheckinRoute />}>
         <Route path="/checkin" element={<CheckinV2Page />} />
       </Route>
-      <Route path="/userlist" element={<UserHomepage />} />
+      <Route path="/activity" element={<UserHomepage />} />
     </Routes>
   );
 }
