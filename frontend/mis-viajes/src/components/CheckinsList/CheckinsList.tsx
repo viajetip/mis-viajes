@@ -1,17 +1,17 @@
-import CheckinBtn from './CheckinBtn'
-import CheckinCard from './CheckinCard'
-import DateTag from './DateTag'
+import CheckinBtn from "./CheckinBtn";
+import CheckinCard from "./CheckinCard";
+import DateTag from "./DateTag";
 
-const CheckinsList = () => {
+const CheckinsList = ({ checkins }) => {
   return (
-    <section className='checkin-list'>
-        <CheckinBtn />
-        <DateTag />
-        <CheckinCard />
-        <CheckinCard />
-
+    <section className="checkin-list">
+      <CheckinBtn />
+      <DateTag />
+      {checkins.map((checkin, index) => {
+        return <CheckinCard key={`${index}-itemcard`} checkin={checkin} />;
+      })}
     </section>
-  )
-}
+  );
+};
 
-export default CheckinsList
+export default CheckinsList;

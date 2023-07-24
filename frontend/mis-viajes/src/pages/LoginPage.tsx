@@ -31,9 +31,6 @@ const LoginPage = () => {
       setError("¡Ups! Algo salió mal.");
     });
 
-    console.log(json);
-    console.log("✅ Done");
-
     setError(null);
     setData(json);
     if(json.msg) {
@@ -41,7 +38,7 @@ const LoginPage = () => {
       setError(json.msg);
       setData("La contraseña o el usuario son incorrectos.");
     } else {
-      setUserSession({ token: json.accessToken, isLogin: true, username: ''});
+      setUserSession({ token: json.accessToken, isLogin: true, username: username.value});
     }
   };
 

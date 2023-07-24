@@ -1,15 +1,16 @@
 import { MdLocationOn } from "react-icons/md";
 import { IconPlaces } from "../Icons";
+import getFlagsEmojis from "../utils/getFlagsEmojis";
 
-const CheckinCard = () => {
+const CheckinCard = ({checkin}) => {
   return (
     <div className="checkin-card">
       <div className="checkin-card__icon">
         <IconPlaces />
       </div>
       <div className="checkin-card__description">
-        <h3 className="checkin-card__title">Torre Eifel</h3>
-        <div className="checkin-card__location">París, Francia 🇫🇷</div>
+        <h3 className="checkin-card__title">{checkin.location}</h3>
+        <div className="checkin-card__location">{checkin.city}, {checkin.country} {getFlagsEmojis(checkin.country)}</div>
       </div>
       <div className="checkin-card__marker-icon checkin-card__marker-icon--visited">
         <MdLocationOn />
