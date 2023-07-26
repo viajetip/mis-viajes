@@ -16,29 +16,33 @@ const UserHomepage = () => {
   }, []);
 
   const getUserCheckins = async () => {
-    const response = await fetch(
-      `http://localhost:8800/v2/api/checkins/users/${userSession.username}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${userSession.token}`,
-        },
+    setError(false);
+    try {
+      const response = await fetch(
+        `http://localhost:8800/v2/api/checkins/users/${userSession.username}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${userSession.token}`,
+          },
+        }
+        ).then((res) => {
+          if(res.ok) {
+            return res.json();
+          } else {
+            throw new Error("Error");
+          }
+        })
+
+        setCheckins(response);
+        
+      } catch (error) {
+        console.log("🚨", error);
+        setError(true);
       }
-    ).catch((err) => {
-      console.log("🚨", err);
       setLoading(false);
-      setError(true);
-    });
-    const json = await response.json().catch((err) => {
-      console.log(err);
-    }).finally(() => {
-      setLoading(false);
-    });
 
-    setCheckins(json);
-
-    console.log("✅", json);
   };
 
   return (
