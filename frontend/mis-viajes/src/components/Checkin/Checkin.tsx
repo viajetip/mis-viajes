@@ -20,7 +20,7 @@ const Checkin = ({ isLoading, places }) => {
     );
   };
 
-  const { loading, handleCheckinAction, done } = useCheckin({
+  const { loading, handleCheckinAction, done, error } = useCheckin({
     userSession,
     currentPlace,
   });
@@ -33,6 +33,7 @@ const Checkin = ({ isLoading, places }) => {
 
   return (
     <Wrapper title="Buscar lugar">
+      {error && <p>🚨 Error</p>}
       <InputCheckin filter={filter} setFilter={setFilter} />
       <div className="checkin-container__list">
         {isLoading && <h1>Loading...</h1>}
@@ -62,7 +63,7 @@ const Checkin = ({ isLoading, places }) => {
           disabled={currentPlace === null}
           className="checkin-container__button"
         >
-          {loading && " " } + Checkin
+          {loading && "Cargando…" } + Checkin
         </button>
       </div>
     </Wrapper>

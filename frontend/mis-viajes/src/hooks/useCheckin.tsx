@@ -3,6 +3,7 @@ import { useState } from "react";
 export const useCheckin = ({userSession, currentPlace}) => {
     const [loading, setLoading] = useState(false);
     const [done, setDone] = useState(false);
+    const [error, setError] = useState(false);
 
     const handleCheckinAction = async (e) => {
         e.preventDefault();
@@ -43,6 +44,7 @@ export const useCheckin = ({userSession, currentPlace}) => {
     return {
         done,
         loading,
-        handleCheckinAction
+        handleCheckinAction,
+        error
     }
 }

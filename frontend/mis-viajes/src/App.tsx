@@ -18,8 +18,8 @@ function App() {
       <Route path="/login" element={<LoginPage />} />
       <Route element={<CheckinRoute />}>
         <Route path="/checkin" element={<CheckinV2Page />} />
+        <Route path="/activity" element={<UserHomepage />} />
       </Route>
-      <Route path="/activity" element={<UserHomepage />} />
     </Routes>
   );
 }
