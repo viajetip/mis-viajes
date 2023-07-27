@@ -25,27 +25,24 @@ export const useCheckin = ({ userSession, currentPlace }) => {
     formData.lat = currentPlace.geometry.coordinates[1];
     formData.lng = currentPlace.geometry.coordinates[0];
 
-    const response = await fetch("http://localhost:8800/v2/api/checkins", {
+    await fetch("http://localhost:8800/v2/api/checkins", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${userSession.token}`,
       },
       body: JSON.stringify(formData),
-    })
-      .then((res) => {
+    }).then((res) => {
         if (res.ok) {
           setDone(true);
           return res.json();
         } else {
           throw new Error("Error");
         }
-      })
-      .catch((err) => {
+      }).catch((err) => {
         console.log(err);
         setError(true);
-      })
-      .finally(() => {
+      }).finally(() => {
         setLoading(false);
       });
   };
